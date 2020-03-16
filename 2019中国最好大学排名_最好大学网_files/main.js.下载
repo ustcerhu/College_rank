@@ -1,0 +1,79 @@
+﻿(function($) {
+  "use strict";
+var $ = jQuery.noConflict();
+
+jQuery(document).ready(function($){
+
+    //以下四个是新的链接地址
+	var lianjie01 = 'https://share.weiyun.com/5UrIo7L';
+	var lianjie02 = 'https://share.weiyun.com/5xU8M4F';
+	var lianjie03 = 'https://share.weiyun.com/51hg0rY';
+	var lianjie04 = 'https://share.weiyun.com/59esfgU';
+	
+	$("a[title*='世界大学学术排名报告']").attr('href',lianjie01);
+	$("a[title*='中国最好大学排名报告']").attr('href',lianjie02);
+	$("a[title*='世界一流学科排名报告']").attr('href',lianjie03);
+	$("a[title*='中国最好学科排名报告']").attr('href',lianjie04);
+	
+	$('li :contains("软科世界大学学术排名报告")').attr('href',lianjie01);
+	$('li :contains("软科中国最好大学排名报告")').attr('href',lianjie02);
+	$('li :contains("软科世界一流学科排名报告")').attr('href',lianjie03);
+	$('li :contains("软科中国最好学科排名报告")').attr('href',lianjie04);
+	
+	
+	$(".report-customize-arwu").children("a").attr('href',lianjie01);
+	$(".report-customize-bcur").children("a").attr('href',lianjie02);
+
+
+
+
+	$("#dingyuebutton").click(function(){
+    	if ($('#dingemail').val() == ''){
+            $('#displayemail2').text('邮箱不能为空');
+        }
+        else {
+            if (/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test($('#dingemail').val()) == false) {
+			$('#displayemail2').text('邮箱格式不正确，请重新输入');
+            }
+            else {
+//            	var checkCodeVal = $("#checkCode").val();
+//            	if(checkCodeVal==""||checkCodeVal==null){
+//            		alert('请输入验证码');
+//            	}else{
+            	$("#booking-form").submit();
+//            		if(checkCode(checkCodeVal)){
+//            			
+//            		}else{
+//            			
+//            		}
+//            	}
+            }
+        }
+         
+    });
+	
+	
+});
+})(jQuery);
+/**
+ * 验证验证码是否正确
+ */
+function checkCode(checkCodeVal){
+	var isOk = false;
+	$.ajax({
+		type : "post",
+		url : "checkCode.action",
+		data :"checkcode="+checkCodeVal,
+		async:false, 
+		beforeSend : function(){
+		},
+		success : function(re) {
+			if(re=="0"){
+				alert("验证码输入不正确！请重新输入");
+				window.reload();
+			}else{
+				isOk = true;
+			}
+		}
+	});	
+}
